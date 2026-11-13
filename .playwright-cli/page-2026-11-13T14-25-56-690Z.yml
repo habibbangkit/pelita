@@ -1,0 +1,89 @@
+- generic [ref=f3e3]:
+  - banner [ref=f3e4]:
+    - generic [ref=f3e5]:
+      - button "Buka navigasi" [ref=f3e6] [cursor=pointer]
+      - generic [ref=f3e10]:
+        - generic [ref=f3e11]: Pemetaan Literasi AI
+        - generic [ref=f3e12]: Kenali kesiapan Anda
+    - generic [ref=f3e13]: P
+  - main [ref=f3e15]:
+    - generic [ref=f3e16]:
+      - generic [ref=f3e18]:
+        - paragraph [ref=f3e19]: Manajemen instrumen
+        - heading "Dimensi penilaian" [level=1] [ref=f3e20]
+        - paragraph [ref=f3e21]: Kelola dimensi yang digunakan untuk mengelompokkan dan menilai kompetensi peserta.
+      - generic [ref=f3e22]: Bobot dan status aktif diatur pada halaman Pengaturan Penilaian.
+      - table [ref=f3e24]:
+        - rowgroup [ref=f3e25]:
+          - row [ref=f3e26]:
+            - columnheader "Nama" [ref=f3e27]
+            - columnheader "Slug" [ref=f3e28]
+            - columnheader "Bobot" [ref=f3e29]
+            - columnheader "Status" [ref=f3e30]
+            - columnheader "Pertanyaan aktif" [ref=f3e31]
+            - columnheader "Tindakan" [ref=f3e32]
+        - rowgroup [ref=f3e34]:
+          - row [ref=f3e35]:
+            - cell [ref=f3e36]:
+              - strong [ref=f3e37]: Literasi Dasar
+            - cell "literasi-dasar" [ref=f3e38]
+            - cell "25.00%" [ref=f3e39]
+            - cell "Aktif" [ref=f3e40]
+            - cell "5" [ref=f3e42]
+            - cell [ref=f3e43]:
+              - generic [ref=f3e44]:
+                - link "Ubah" [ref=f3e45] [cursor=pointer]:
+                  - /url: http://127.0.0.1:8000/admin/dimensions/1/edit
+                - button "Arsipkan" [ref=f3e47] [cursor=pointer]
+          - row [ref=f3e48]:
+            - cell [ref=f3e49]:
+              - strong [ref=f3e50]: Keterampilan Praktis
+            - cell "keterampilan-praktis" [ref=f3e51]
+            - cell "35.00%" [ref=f3e52]
+            - cell "Aktif" [ref=f3e53]
+            - cell "5" [ref=f3e55]
+            - cell [ref=f3e56]:
+              - generic [ref=f3e57]:
+                - link "Ubah" [ref=f3e58] [cursor=pointer]:
+                  - /url: http://127.0.0.1:8000/admin/dimensions/2/edit
+                - button "Arsipkan" [ref=f3e60] [cursor=pointer]
+          - row [ref=f3e61]:
+            - cell [ref=f3e62]:
+              - strong [ref=f3e63]: Etika & Keamanan
+            - cell "etika-keamanan" [ref=f3e64]
+            - cell "20.00%" [ref=f3e65]
+            - cell "Aktif" [ref=f3e66]
+            - cell "5" [ref=f3e68]
+            - cell [ref=f3e69]:
+              - generic [ref=f3e70]:
+                - link "Ubah" [ref=f3e71] [cursor=pointer]:
+                  - /url: http://127.0.0.1:8000/admin/dimensions/3/edit
+                - button "Arsipkan" [ref=f3e73] [cursor=pointer]
+          - row [ref=f3e74]:
+            - cell [ref=f3e75]:
+              - strong [ref=f3e76]: Kesiapan Infrastruktur
+            - cell "kesiapan-infrastruktur" [ref=f3e77]
+            - cell "20.00%" [ref=f3e78]
+            - cell "Aktif" [ref=f3e79]
+            - cell "5" [ref=f3e81]
+            - cell [ref=f3e82]:
+              - generic [ref=f3e83]:
+                - link "Ubah" [ref=f3e84] [cursor=pointer]:
+                  - /url: http://127.0.0.1:8000/admin/dimensions/4/edit
+                - button "Arsipkan" [ref=f3e86] [cursor=pointer]
+      - generic [ref=f3e87]:
+        - heading "Tambah dimensi" [level=2] [ref=f3e88]
+        - paragraph [ref=f3e89]: Dimensi baru akan dibuat nonaktif hingga bobot dan statusnya dikonfigurasi.
+        - generic [ref=f3e90]:
+          - generic [ref=f3e91]:
+            - generic [ref=f3e92]:
+              - generic [ref=f3e93]: Nama
+              - textbox "Nama" [ref=f3e94]
+            - generic [ref=f3e95]:
+              - generic [ref=f3e96]: Slug
+              - textbox "Slug" [ref=f3e97]
+          - generic [ref=f3e98]:
+            - generic [ref=f3e99]: Deskripsi
+            - textbox "Deskripsi" [ref=f3e100]
+          - button "Tambah dimensi" [ref=f3e101] [cursor=pointer]
+  - contentinfo [ref=f3e102]: PELITA · Pemetaan Literasi dan Kesiapan Teknologi AI

@@ -1,0 +1,69 @@
+- generic [ref=f1e3]:
+  - banner [ref=f1e4]:
+    - generic [ref=f1e5]:
+      - button "Buka navigasi" [ref=f1e6] [cursor=pointer]
+      - generic [ref=f1e10]:
+        - generic [ref=f1e11]: Beranda
+        - generic [ref=f1e12]: Informasi & asesmen PELITA
+  - main [ref=f1e13]:
+    - region [ref=f1e14]:
+      - generic [ref=f1e16]:
+        - generic [ref=f1e17]: Pemetaan literasi dan kesiapan AI
+        - heading "PELITA" [level=1] [ref=f1e19]
+        - heading "Informasi literasi dan kesiapan teknologi AI." [level=2] [ref=f1e20]
+        - paragraph [ref=f1e21]: PELITA membantu Anda memahami kesiapan menggunakan kecerdasan buatan secara bijak melalui pemetaan yang terstruktur dan rekomendasi pengembangan.
+        - generic [ref=f1e22]:
+          - generic [ref=f1e23]: Asesmenterstruktur
+          - generic [ref=f1e28]: Pemetaan4 dimensi
+          - generic [ref=f1e34]: Rekomendasibelajar
+        - generic [ref=f1e40]: Kenali potensi. Siapkan masa depan bersama PELITA.
+      - region [ref=f1e41]:
+        - generic [ref=f1e42]:
+          - paragraph [ref=f1e43]: Informasi umum
+          - heading "Tentang asesmen PELITA" [level=2] [ref=f1e44]
+          - paragraph [ref=f1e45]: Asesmen ini merupakan alat refleksi untuk membantu Anda mengenali kekuatan dan area yang dapat dikembangkan, bukan ujian atau sertifikasi.
+        - generic [ref=f1e46]:
+          - article [ref=f1e47]:
+            - generic [ref=f1e48]: "01"
+            - heading "Literasi Dasar" [level=3] [ref=f1e49]
+            - paragraph [ref=f1e50]: Memahami konsep AI, kemampuan, dan batasannya.
+          - article [ref=f1e51]:
+            - generic [ref=f1e52]: "02"
+            - heading "Keterampilan Praktis" [level=3] [ref=f1e53]
+            - paragraph [ref=f1e54]: Menerapkan AI untuk mendukung aktivitas belajar dan pekerjaan.
+          - article [ref=f1e55]:
+            - generic [ref=f1e56]: "03"
+            - heading "Etika & Keamanan" [level=3] [ref=f1e57]
+            - paragraph [ref=f1e58]: Menjaga privasi, memeriksa bias, dan menggunakan AI secara bertanggung jawab.
+          - article [ref=f1e59]:
+            - generic [ref=f1e60]: "04"
+            - heading "Kesiapan Infrastruktur" [level=3] [ref=f1e61]
+            - paragraph [ref=f1e62]: Mengenali akses perangkat, internet, dan dukungan untuk menggunakan teknologi.
+        - generic [ref=f1e63]:
+          - strong [ref=f1e64]: Hasil yang akan Anda terima
+          - generic [ref=f1e65]: Skor akhir, tingkat kematangan, ringkasan tiap dimensi, serta rekomendasi pengembangan yang dapat diunduh sebagai PDF.
+      - region [ref=f1e66]:
+        - generic [ref=f1e67]: Asesmen tersedia
+        - paragraph [ref=f1e74]: Langkah pertama
+        - heading "PELITA - AI Literacy & Readiness Assessment" [level=2] [ref=f1e75]
+        - paragraph [ref=f1e76]: Asesmen ini mengukur pemahaman, keterampilan penggunaan, kesadaran etika, dan kesiapan individu dalam mengadopsi teknologi AI. Hasilnya membantu menentukan tingkat kematangan literasi AI dan rekomendasi pembelajaran.
+        - paragraph [ref=f1e77]: 20 pertanyaan · Estimasi sekitar 15 menit.
+        - generic [ref=f1e78]:
+          - generic [ref=f1e79]:
+            - generic [ref=f1e80]: Nama lengkap
+            - textbox "Nama lengkap" [ref=f1e81]:
+              - /placeholder: Masukkan nama lengkap
+          - generic [ref=f1e82]:
+            - generic [ref=f1e83]: Alamat email
+            - textbox "Alamat email" [ref=f1e84]:
+              - /placeholder: nama@email.com
+          - generic [ref=f1e89]:
+            - text: "Nama dan email dianonimkan setelah 360 hari sejak asesmen terakhir selesai; skor dan jawaban tetap disimpan tanpa identitas. Kontak privasi: admin,"
+            - link "admin@gmail.com" [ref=f1e90] [cursor=pointer]:
+              - /url: mailto:admin@gmail.com
+            - text: .
+          - button "Mulai asesmen" [ref=f1e91] [cursor=pointer]:
+            - text: Mulai asesmen
+            - generic [aria-hidden] [ref=f1e92]: →
+        - paragraph [ref=f1e93]: Tidak perlu membuat akun · Jawaban tersimpan saat Anda melanjutkan
+  - contentinfo [ref=f1e94]: PELITA · Pemetaan Literasi dan Kesiapan Teknologi AI
