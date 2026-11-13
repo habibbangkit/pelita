@@ -61,7 +61,7 @@ class PrivacyRetentionTest extends TestCase
         $this->get('/')
             ->assertOk()
             ->assertSee('Asesmen belum dapat dimulai')
-            ->assertDontSee('Mulai asesmen');
+            ->assertDontSee('action="'.route('assessment.start').'"', false);
     }
 
     public function test_admin_can_save_privacy_contact_and_retention_policy(): void

@@ -1,19 +1,19 @@
 # PELITA
 
-PELITA is a Laravel 12 application for mapping AI literacy and readiness. It supports participant assessments without participant accounts and an authenticated admin area for managing the instrument, scoring configuration, and results.
+PELITA adalah aplikasi Laravel 12 untuk memetakan literasi dan kesiapan terhadap teknologi Artificial Intelligence (AI). Peserta dapat mengikuti asesmen tanpa membuat akun, sedangkan administrator dapat mengelola instrumen, konfigurasi penilaian, dan hasil melalui area admin yang terlindungi.
 
-## Requirements
+## Persyaratan
 
-- PHP 8.2 or newer and Composer
-- MySQL/MariaDB for production; SQLite is supported for local development and tests
-- Node.js/npm for compiling frontend assets
-- The `pdo_sqlite` PHP extension when running tests with SQLite
+- PHP 8.2 atau lebih baru dan Composer.
+- MySQL/MariaDB untuk produksi; SQLite didukung untuk pengembangan lokal dan pengujian.
+- Node.js/npm untuk mengompilasi aset frontend.
+- Ekstensi PHP `pdo_sqlite` untuk menjalankan pengujian dengan SQLite.
 
-## Local setup
+## Menyiapkan aplikasi lokal
 
-1. Copy `.env.example` to `.env` and configure the database.
-2. Set `PELITA_ADMIN_NAME`, `PELITA_ADMIN_EMAIL`, and `PELITA_ADMIN_PASSWORD` to provision the initial administrator. Keep these values out of source control.
-3. Install dependencies, generate the application key, migrate and seed the database, and build frontend assets:
+1. Salin `.env.example` menjadi `.env`, lalu atur koneksi database.
+2. Atur `PELITA_ADMIN_NAME`, `PELITA_ADMIN_EMAIL`, dan `PELITA_ADMIN_PASSWORD` untuk membuat administrator awal. Jangan masukkan nilai tersebut ke kontrol versi.
+3. Pasang dependensi, buat kunci aplikasi, migrasikan dan isi database, lalu kompilasi aset frontend:
 
    ```sh
    composer install
@@ -24,31 +24,31 @@ PELITA is a Laravel 12 application for mapping AI literacy and readiness. It sup
    php artisan serve
    ```
 
-4. Open `/` for the participant landing page and `/admin/login` for administrator sign-in.
+4. Buka `/` untuk halaman peserta dan `/admin/login` untuk masuk sebagai administrator.
 
-The foundation seeder creates the four default dimensions, three maturity levels, and a **draft** assessment. It does not contain approved assessment items: the PRD does not provide validated questions. Re-running the seeder creates missing foundation records without overwriting scoring values already configured by an administrator.
+Seeder fondasi membuat empat dimensi awal, tiga tingkat kematangan, dan satu asesmen berstatus **draft**. Seeder tersebut tidak memuat butir soal yang telah disetujui karena PRD tidak menyediakan pertanyaan yang tervalidasi. Jika dijalankan kembali, seeder hanya membuat data fondasi yang belum tersedia dan tidak menimpa nilai penilaian yang sudah diatur administrator.
 
-## Admin workflow
+## Alur kerja administrator
 
-1. Review and manage dimensions at `/admin/dimensions`. New dimensions start inactive with zero weight.
-2. Configure active dimensions and their weights, and set maturity score ranges at `/admin/scoring-settings`. Active dimension weights must total 100%; maturity ranges must be contiguous from 0 through 100.
-3. Create and manage questions and options at `/admin/questions`. Multiple-choice questions require exactly one correct option. Likert options each need a rubric score from 0 to 100. Questions can be reordered, deactivated, or archived; records are retained rather than deleted.
-4. Publish the draft assessment from the question-management page. Publication is rejected unless every active dimension has an active question and each active question has valid options, type, and weight. Only a published, complete assessment is offered on the participant landing page.
-5. To revise assessment questions, first return the assessment to draft. Instrument and scoring changes are blocked while participants are in progress. Dimensions that are used by a published assessment cannot be activated or deactivated until the published assessment is brought back to draft and its questions are adjusted.
+1. Tinjau dan kelola dimensi melalui `/admin/dimensions`. Dimensi baru berstatus nonaktif dengan bobot nol.
+2. Atur dimensi aktif beserta bobotnya, lalu tentukan rentang skor kematangan melalui `/admin/scoring-settings`. Jumlah bobot dimensi aktif harus 100%; rentang kematangan harus berurutan dari 0 sampai 100.
+3. Buat dan kelola pertanyaan beserta opsi melalui `/admin/questions`. Pertanyaan pilihan ganda harus memiliki tepat satu opsi benar. Setiap opsi Likert memerlukan skor rubrik 0–100. Pertanyaan dapat diurutkan ulang, dinonaktifkan, atau diarsipkan; data tetap disimpan dan tidak dihapus.
+4. Publikasikan asesmen draft dari halaman pengelolaan pertanyaan. Publikasi ditolak jika dimensi aktif tidak memiliki pertanyaan aktif, atau jika pertanyaan aktif memiliki opsi, tipe, atau bobot yang tidak valid. Hanya asesmen yang sudah dipublikasikan dan lengkap yang tersedia di halaman peserta.
+5. Untuk mengubah pertanyaan, kembalikan asesmen ke status draft terlebih dahulu. Perubahan instrumen dan penilaian dibatasi selama masih ada peserta yang sedang mengerjakan asesmen. Dimensi yang digunakan oleh asesmen terpublikasi tidak dapat diaktifkan atau dinonaktifkan sebelum asesmen dikembalikan ke draft dan pertanyaannya disesuaikan.
 
-Administrators can view the dashboard at `/admin/dashboard`, search and filter completed participants at `/admin/participants`, inspect individual result snapshots, and export the filtered results as CSV.
+Administrator dapat melihat ringkasan di `/admin/dashboard`, mencari dan memfilter asesmen selesai di `/admin/participants`, serta memeriksa rekaman hasil tiap peserta. Hasil yang telah difilter dapat diunduh sebagai PDF.
 
-## Scoring and historical results
+## Penilaian dan hasil historis
 
-- Multiple-choice answers score 100 when correct and 0 when incorrect. Likert answers use the selected option's `score_value`.
-- Question scores are averaged by question weight within each dimension. The final score is the weighted sum of active dimension scores.
-- Maturity ranges and dimension weights are managed in the database; the foundation seeder supplies defaults: Aware (0–39.99), Adopter (40–74.99), and Transformer (75–100).
-- Completed attempts store score, maturity level, dimension weights, answer/question text, selected option text, and recommendation snapshots. Later edits to the instrument or scoring configuration do not recalculate historical results.
-- If no configured recommendation matches the lowest-scoring dimension, PELITA displays a neutral fallback recommendation. Recommendations can be stored in the `recommendations` table.
+- Jawaban pilihan ganda mendapat skor 100 jika benar dan 0 jika salah. Jawaban Likert menggunakan `score_value` dari opsi yang dipilih.
+- Skor pertanyaan dirata-ratakan berdasarkan bobot pertanyaan di dalam setiap dimensi. Skor akhir merupakan jumlah skor dimensi yang telah dikalikan bobot masing-masing.
+- Rentang kematangan dan bobot dimensi dikelola di database. Seeder fondasi menyediakan nilai awal: Aware (0–39,99), Adopter (40–74,99), dan Transformer (75–100).
+- Hasil asesmen yang selesai menyimpan skor, tingkat kematangan, snapshot bobot, teks pertanyaan dan jawaban, opsi yang dipilih, serta rekomendasi. Perubahan instrumen atau konfigurasi penilaian berikutnya tidak menghitung ulang hasil historis.
+- Jika tidak ada rekomendasi yang sesuai dengan dimensi berskor terendah, PELITA menampilkan rekomendasi netral. Rekomendasi dapat disimpan di tabel `recommendations`.
 
-## Production deployment
+## Deployment produksi
 
-Use HTTPS and a supported MySQL/MariaDB server. Before deployment, provision the database and application environment, including a strong admin password and a persistent `APP_KEY`. Set at least:
+Gunakan HTTPS dan server MySQL/MariaDB yang didukung. Sebelum deployment, siapkan database dan konfigurasi aplikasi, termasuk kata sandi administrator yang kuat serta `APP_KEY` yang tetap. Atur setidaknya:
 
 ```dotenv
 APP_ENV=production
@@ -57,9 +57,9 @@ APP_URL=https://your-domain.example
 SESSION_SECURE_COOKIE=true
 ```
 
-Set the database credentials and `PELITA_ADMIN_*` values through the hosting platform's secret/environment configuration, not in source control. Configure the web server to serve Laravel's `public` directory, enable HTTPS, and ensure the PHP process can write to `storage` and `bootstrap/cache`. If TLS terminates at a reverse proxy, configure Laravel's trusted proxies so secure-request detection and HSTS behave correctly.
+Atur kredensial database dan nilai `PELITA_ADMIN_*` melalui konfigurasi rahasia/lingkungan hosting, bukan di kontrol versi. Konfigurasikan server web agar menyajikan folder `public` Laravel, aktifkan HTTPS, dan pastikan proses PHP dapat menulis ke `storage` serta `bootstrap/cache`. Jika TLS berakhir di proxy perantara (reverse proxy), atur trusted proxy Laravel agar deteksi koneksi aman dan HSTS berfungsi dengan benar.
 
-For a release, build assets and install production dependencies, then run migrations and refresh cached configuration while the application is in maintenance mode:
+Untuk setiap rilis, kompilasi aset dan pasang dependensi produksi, lalu jalankan migrasi serta perbarui cache konfigurasi ketika aplikasi berada dalam mode pemeliharaan:
 
 ```sh
 npm install
@@ -71,11 +71,31 @@ php artisan optimize
 php artisan up
 ```
 
-On the initial deployment, generate `APP_KEY` once before serving traffic and run the seeder with the production environment values to create the initial admin. Do not regenerate the key during routine releases. Verify `/up`, administrator sign-in, and a complete test assessment after deployment.
+Pada deployment pertama, buat `APP_KEY` satu kali sebelum aplikasi menerima trafik dan jalankan seeder dengan konfigurasi lingkungan produksi untuk membuat administrator awal. Jangan membuat ulang kunci saat rilis rutin. Setelah deployment, verifikasi `/up`, login administrator, dan satu asesmen uji hingga selesai.
 
-## Database backup and restore
+### Pengaturan email dan antrean di InfinityFree
 
-Take a database backup before each schema migration and on a schedule determined by the data owner. Store backups encrypted and access-restricted, separate from the application host. For MySQL/MariaDB, use the database client tools and enter the password at the prompt:
+InfinityFree tidak menyediakan worker antrean Laravel yang berjalan terus-menerus. Atur `QUEUE_CONNECTION=sync` di lingkungan hosting agar job email hasil dijalankan saat peserta mengirim asesmen. Jangan mengandalkan `php artisan queue:work` di hosting tersebut. Hasil asesmen disimpan sebelum pengiriman email; kegagalan email tidak membatalkan hasil dan status pengiriman dicatat sebagai gagal.
+
+Gunakan penyedia SMTP eksternal beserta kredensial yang diterbitkannya. Untuk InfinityFree, gunakan host SMTP penyedia dengan port `587` dan STARTTLS, misalnya:
+
+```dotenv
+QUEUE_CONNECTION=sync
+MAIL_MAILER=smtp
+MAIL_SCHEME=smtp
+MAIL_HOST=your-provider-smtp-host
+MAIL_PORT=587
+MAIL_USERNAME=your-smtp-username
+MAIL_PASSWORD=your-new-smtp-password
+MAIL_FROM_ADDRESS=verified-sender@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+Ganti nilai contoh hanya di lingkungan hosting; jangan pernah melakukan commit kredensial SMTP. `MAIL_MAILER=log` hanya menulis pesan ke log aplikasi dan tidak mengirim email. `127.0.0.1` bukan layanan SMTP eksternal. Setelah mengubah konfigurasi lingkungan, bersihkan cache konfigurasi Laravel menggunakan cara deployment yang didukung hosting. Uji pengiriman dengan asesmen baru; hasil lama tidak dikirim ulang secara otomatis.
+
+## Pencadangan dan pemulihan database
+
+Buat cadangan database sebelum setiap migrasi skema dan secara berkala sesuai kebijakan pemilik data. Simpan cadangan dalam keadaan terenkripsi, dengan akses terbatas, dan terpisah dari host aplikasi. Untuk MySQL/MariaDB, gunakan alat klien database dan masukkan kata sandi saat diminta:
 
 ```sh
 mysqldump --single-transaction \
@@ -83,27 +103,27 @@ mysqldump --single-transaction \
   "$DB_DATABASE" > pelita-backup.sql
 ```
 
-Periodically restore a backup into an isolated database and verify the restored data and schema before relying on the backup:
+Pulihkan cadangan secara berkala ke database terisolasi, lalu verifikasi data dan skemanya sebelum mengandalkan cadangan tersebut:
 
 ```sh
 mysql --host="$DB_HOST" --port="$DB_PORT" --user="$DB_USERNAME" --password \
   pelita_restore < pelita-backup.sql
 ```
 
-Point a test/staging copy of the application at the restored database and verify with `php artisan migrate:status`, then sign in and inspect representative assessment results. Do not test a restore against the production database.
+Arahkan salinan aplikasi di lingkungan uji ke database hasil pemulihan dan verifikasi dengan `php artisan migrate:status`. Setelah itu, masuk ke aplikasi dan periksa beberapa hasil asesmen. Jangan menguji pemulihan terhadap database produksi.
 
-Production deployment, scheduled backups, and a restore drill have not been run from this workspace; they require an explicitly provisioned target server and database.
+Deployment produksi, pencadangan terjadwal, dan simulasi pemulihan belum dijalankan dari workspace ini karena memerlukan server dan database target yang telah disiapkan.
 
-## Access and data handling
+## Akses dan pengelolaan data
 
-- Participants do not need accounts. Each attempt is identified by a random UUID URL; treat that URL as a bearer link and do not share it.
-- Admin routes require an admin account. The public participant flow shows a short data-use notice.
-- Data retention and deletion periods must be set by the data owner. Establish an operational retention and backup policy before collecting production participant data.
+- Peserta tidak perlu membuat akun. Setiap asesmen menggunakan URL UUID acak; perlakukan URL tersebut sebagai tautan akses rahasia dan jangan membagikannya.
+- Rute admin memerlukan akun administrator. Alur peserta publik menampilkan pemberitahuan singkat tentang penggunaan data.
+- Masa retensi dan penghapusan data harus ditetapkan oleh pemilik data. Tetapkan kebijakan operasional retensi dan pencadangan sebelum mengumpulkan data peserta produksi.
 
-## Tests
+## Pengujian
 
 ```sh
 php artisan test
 ```
 
-Tests use an in-memory SQLite database and require the `pdo_sqlite` extension.
+Pengujian menggunakan database SQLite dalam memori dan memerlukan ekstensi `pdo_sqlite`.

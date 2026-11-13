@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ParticipantFilterRequest;
 use App\Models\AssessmentAttempt;
-use App\Models\AttemptDimensionScore;
 use App\Models\MaturityLevel;
 use App\Services\AssessmentReportService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
-use RuntimeException;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ParticipantController extends Controller
 {
@@ -74,57 +73,20 @@ class ParticipantController extends Controller
         ]);
     }
 
-    public function export(ParticipantFilterRequest $request): StreamedResponse
+    public function export(ParticipantFilterRequest $request): Response
     {
-        $query = $this->filteredAttempts($request->validated())
-            ->with('participant', 'assessment', 'dimensionScores');
-        $dimensions = AttemptDimensionScore::query()
-            ->whereHas('attempt', fn (Builder $attemptQuery) => $attemptQuery
-                ->where('status', 'completed')
-                ->whereNotNull('total_score'))
-            ->select('dimension_name_snapshot')
-            ->distinct()
-            ->orderBy('dimension_name_snapshot')
-            ->pluck('dimension_name_snapshot');
+        $filters = $request->validated();
+        $attempts = $this->filteredAttempts($filters)
+            ->with('participant', 'assessment')
+            ->get();
 
-        return response()->streamDownload(function () use ($query, $dimensions): void {
-            $output = fopen('php://output', 'w');
-            if ($output === false) {
-                throw new RuntimeException('Tidak dapat membuka stream ekspor CSV.');
-            }
-
-            fwrite($output, "\xEF\xBB\xBF");
-            $headers = ['ID Pengerjaan', 'Nama', 'Email', 'Asesmen', 'Waktu Selesai', 'Skor Akhir', 'Level'];
-            foreach ($dimensions as $dimensionName) {
-                $headers[] = 'Skor '.$dimensionName;
-            }
-            fputcsv($output, array_map($this->safeCsvValue(...), $headers), ',', '"', '');
-
-            $query->reorder()->orderBy('id')->chunkById(500, function ($attempts) use ($output, $dimensions): void {
-                foreach ($attempts as $attempt) {
-                    $scores = $attempt->dimensionScores->keyBy('dimension_name_snapshot');
-                    $row = [
-                        $attempt->uuid,
-                        $attempt->participant->name,
-                        $attempt->participant->email,
-                        $attempt->assessment->title,
-                        $attempt->completed_at?->format('d/m/Y H:i'),
-                        $attempt->total_score,
-                        $attempt->maturity_level,
-                    ];
-
-                    foreach ($dimensions as $dimensionName) {
-                        $row[] = $scores->get($dimensionName)?->score ?? '';
-                    }
-
-                    fputcsv($output, array_map($this->safeCsvValue(...), $row), ',', '"', '');
-                }
-            });
-
-            fclose($output);
-        }, 'pelita-hasil-'.now()->format('Ymd-His').'.csv', [
-            'Content-Type' => 'text/csv; charset=UTF-8',
-        ]);
+        return Pdf::loadView('admin.reports.participants-pdf', [
+            'attempts' => $attempts,
+            'filters' => $filters,
+            'generatedAt' => now(),
+        ])
+            ->setPaper('a4', 'landscape')
+            ->download('pelita-peserta-'.now()->format('Ymd-His').'.pdf');
     }
 
     private function filteredAttempts(array $filters): Builder
@@ -147,16 +109,4 @@ class ParticipantController extends Controller
             ->orderByDesc('id');
     }
 
-    private function safeCsvValue(mixed $value): string|int|float
-    {
-        if (! is_string($value)) {
-            return $value ?? '';
-        }
-
-        if (preg_match('/^[\x00-\x20]*[=+\-@]/', $value) === 1) {
-            return "'".$value;
-        }
-
-        return $value;
-    }
 }

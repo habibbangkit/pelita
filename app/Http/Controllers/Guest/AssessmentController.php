@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Throwable;
 
 class AssessmentController extends Controller
 {
@@ -205,7 +206,12 @@ class AssessmentController extends Controller
                     ->withErrors(['assessment' => 'Asesmen belum dapat dinilai. Silakan hubungi pengelola.']);
             }
 
-            SendAssessmentResultEmail::dispatch($attempt->id);
+            try {
+                SendAssessmentResultEmail::dispatch($attempt->id);
+            } catch (Throwable $exception) {
+                report($exception);
+                $attempt->update(['result_email_status' => 'failed']);
+            }
 
             return redirect()->route('assessment.complete', $attempt);
         }

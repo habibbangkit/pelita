@@ -1,0 +1,184 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "PELITA - Beranda" [ref=e3] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000
+      - generic [ref=e7]:
+        - generic [ref=e8]: PELITA
+        - generic [ref=e9]: Literasi & kesiapan AI
+    - navigation "Navigasi utama" [ref=e10]:
+      - link "Beranda" [ref=e11] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#beranda
+      - link "Tentang PELITA" [ref=e12] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#mengenal-pelita
+      - link "Fitur" [ref=e13] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#fitur-pelita
+      - link "Indikator" [ref=e14] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#dimensi-penilaian
+      - link "Alur Asesmen" [ref=e15] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#cara-kerja
+      - link "FAQ" [ref=e16] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#faq
+    - link "Masuk" [ref=e17] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/admin/login
+  - main [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - region [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]: Pemetaan Literasi dan Kesiapan Teknologi Artificial Intelligence
+            - heading "Kenali Potensimu, Ukur Kesiapanmu." [level=1] [ref=e30]: Kenali Potensimu,Ukur Kesiapanmu.
+            - paragraph [ref=e31]: Kenali kemampuanmu dan siapkan diri menghadapi era Artificial Intelligence melalui asesmen yang mudah, informatif, dan terukur.
+            - generic [ref=e32]:
+              - link "Mulai Asesmen" [ref=e33] [cursor=pointer]:
+                - /url: "#mulai-asesmen"
+                - text: Mulai Asesmen
+                - generic [aria-hidden] [ref=e34]: →
+              - link "Pelajari Lebih Lanjut" [ref=e35] [cursor=pointer]:
+                - /url: "#mengenal-pelita"
+          - generic [ref=e36]: ✦ Kenali diri. Siap menghadapi AI.
+        - region [ref=e37]:
+          - paragraph [ref=e38]: Tentang PELITA
+          - heading "Apa itu PELITA?" [level=2] [ref=e39]
+          - paragraph [ref=e40]: PELITA adalah platform asesmen digital untuk memetakan literasi, keterampilan, dan kesiapan individu dalam memanfaatkan teknologi Artificial Intelligence secara efektif, aman, dan bertanggung jawab.
+          - paragraph [ref=e41]: Kenali kemampuan yang sudah dimiliki, temukan aspek yang perlu dikembangkan, lalu dapatkan rekomendasi sesuai hasil asesmen.
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - generic [aria-hidden] [ref=e44]: ✓
+              - generic [ref=e45]:
+                - strong [ref=e46]: Asesmen terstruktur
+                - generic [ref=e47]: Pertanyaan disusun berdasarkan empat dimensi.
+            - generic [ref=e48]:
+              - generic [aria-hidden] [ref=e49]: ◎
+              - generic [ref=e50]:
+                - strong [ref=e51]: Hasil dan rekomendasi
+                - generic [ref=e52]: Skor, tingkat kematangan, dan saran pengembangan.
+            - generic [ref=e53]:
+              - generic [aria-hidden] [ref=e54]: ↓
+              - generic [ref=e55]:
+                - strong [ref=e56]: Laporan yang mudah dibawa
+                - generic [ref=e57]: Unduh hasil asesmen dalam format PDF.
+          - link "Lihat indikator penilaian" [ref=e58] [cursor=pointer]:
+            - /url: "#dimensi-penilaian"
+            - text: Lihat indikator penilaian →
+        - region [ref=e59]:
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - paragraph [ref=e62]: Empat aspek utama
+              - heading "Apa yang Diukur?" [level=2] [ref=e63]
+            - generic [aria-hidden] [ref=e64]: ◈
+          - generic [ref=e65]:
+            - article [ref=e66]:
+              - generic [ref=e67]: "01"
+              - heading "Literasi Dasar AI" [level=3] [ref=e68]
+              - paragraph [ref=e69]: Pemahaman konsep, fungsi, manfaat, dan cara kerja dasar AI.
+            - article [ref=e70]:
+              - generic [ref=e71]: "02"
+              - heading "Keterampilan Praktis" [level=3] [ref=e72]
+              - paragraph [ref=e73]: Kemampuan menggunakan teknologi AI untuk membantu aktivitas sehari-hari.
+            - article [ref=e74]:
+              - generic [ref=e75]: "03"
+              - heading "Etika dan Keamanan" [level=3] [ref=e76]
+              - paragraph [ref=e77]: Kesadaran tentang privasi, keamanan data, bias, dan penggunaan AI yang bertanggung jawab.
+            - article [ref=e78]:
+              - generic [ref=e79]: "04"
+              - heading "Kesiapan Infrastruktur" [level=3] [ref=e80]
+              - paragraph [ref=e81]: Kesiapan perangkat, akses internet, lingkungan, dan kemampuan beradaptasi.
+          - generic "Tingkat kematangan AI" [ref=e82]:
+            - generic [ref=e83]:
+              - strong [ref=e84]: Aware
+              - generic [ref=e85]: 0–39
+            - generic [ref=e86]:
+              - strong [ref=e87]: Adopter
+              - generic [ref=e88]: 40–74
+            - generic [ref=e89]:
+              - strong [ref=e90]: Transformer
+              - generic [ref=e91]: 75–100
+        - region [ref=e92]:
+          - paragraph [ref=e93]: Mudah dan informatif
+          - heading "Alur Asesmen PELITA" [level=2] [ref=e94]
+          - generic [ref=e95]:
+            - article [ref=e96]:
+              - generic [ref=e97]: "01"
+              - generic [ref=e98]:
+                - heading "Isi identitas" [level=3] [ref=e99]
+                - paragraph [ref=e100]: Masukkan nama dan email untuk memulai asesmen.
+            - article [ref=e101]:
+              - generic [ref=e102]: "02"
+              - generic [ref=e103]:
+                - heading "Kerjakan asesmen" [level=3] [ref=e104]
+                - paragraph [ref=e105]: Jawab sesuai pengetahuan dan pengalamanmu.
+            - article [ref=e106]:
+              - generic [ref=e107]: "03"
+              - generic [ref=e108]:
+                - heading "Lihat hasil" [level=3] [ref=e109]
+                - paragraph [ref=e110]: Ketahui skor dan tingkat kematangan AI-mu.
+            - article [ref=e111]:
+              - generic [ref=e112]: "04"
+              - generic [ref=e113]:
+                - heading "Dapatkan rekomendasi" [level=3] [ref=e114]
+                - paragraph [ref=e115]: Pelajari saran untuk meningkatkan kesiapanmu.
+          - generic [ref=e116]:
+            - generic [ref=e117]:
+              - strong [ref=e118]: Siap mulai?
+              - generic [ref=e119]: Asesmen dapat dikerjakan tanpa membuat akun.
+            - link "Mulai asesmen" [ref=e120] [cursor=pointer]:
+              - /url: "#mulai-asesmen"
+              - text: Mulai →
+          - link "Punya pertanyaan? Baca FAQ" [ref=e121] [cursor=pointer]:
+            - /url: "#faq"
+            - text: Punya pertanyaan? Baca FAQ →
+      - region [ref=e122]:
+        - generic [ref=e123]:
+          - paragraph [ref=e124]: Bantuan
+          - heading "Pertanyaan yang Sering Diajukan" [level=2] [ref=e125]
+        - generic [ref=e126]:
+          - group [ref=e127]:
+            - generic "Apakah asesmen PELITA berbayar dan perlu akun?" [ref=e128] [cursor=pointer]
+          - group [ref=e129]:
+            - generic "Berapa lama asesmen berlangsung?" [ref=e130] [cursor=pointer]
+          - group [ref=e131]:
+            - generic "Apakah hasil asesmen merupakan sertifikat kompetensi?" [ref=e132] [cursor=pointer]
+          - group [ref=e133]:
+            - generic "Bagaimana data peserta digunakan dan dilindungi?" [ref=e134] [cursor=pointer]
+      - region [ref=e135]:
+        - generic [ref=e136]:
+          - paragraph [ref=e137]: Langkah berikutnya
+          - heading "Siap Mengukur Kesiapanmu Menghadapi Era AI?" [level=2] [ref=e138]
+          - paragraph [ref=e139]: Mulai kenali kemampuanmu dan temukan peluang untuk berkembang bersama teknologi Artificial Intelligence.
+          - generic [ref=e140]:
+            - generic [ref=e141]: ✓ Hasil langsung tersedia
+            - generic [ref=e142]: ✓ Laporan PDF
+            - generic [ref=e143]: ✓ Rekomendasi personal
+        - generic [ref=e144]:
+          - generic [ref=e145]: Asesmen tersedia
+          - heading "PELITA - AI Literacy & Readiness Assessment" [level=3] [ref=e147]
+          - paragraph [ref=e148]: Asesmen ini mengukur pemahaman, keterampilan penggunaan, kesadaran etika, dan kesiapan individu dalam mengadopsi teknologi AI. Hasilnya membantu menentukan tingkat kematangan literasi AI dan rekomendasi pembelajaran.
+          - paragraph [ref=e149]: 20 pertanyaan · sekitar 15 menit
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - generic [ref=e152]: Nama lengkap
+              - textbox "Nama lengkap" [ref=e153]:
+                - /placeholder: Masukkan nama lengkap
+            - generic [ref=e154]:
+              - generic [ref=e155]: Alamat email
+              - textbox "Alamat email" [ref=e156]:
+                - /placeholder: nama@email.com
+            - paragraph [ref=e157]: Laporan PDF akan dikirim ke alamat email yang Anda daftarkan. Data identitas dianonimkan setelah 360 hari.
+            - button "Mulai asesmen sekarang" [ref=e158] [cursor=pointer]:
+              - text: Mulai asesmen sekarang
+              - generic [aria-hidden] [ref=e159]: →
+  - contentinfo [ref=e160]:
+    - generic [ref=e161]:
+      - strong [ref=e162]: PELITA
+      - generic [ref=e163]: Pemetaan Literasi dan Kesiapan Teknologi Artificial Intelligence.
+      - generic [ref=e164]: Platform asesmen untuk mendukung peningkatan literasi dan kesiapan pemanfaatan teknologi AI.
+    - navigation "Tautan informasi" [ref=e165]:
+      - link "Indikator" [ref=e166] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#dimensi-penilaian
+      - link "Alur asesmen" [ref=e167] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#cara-kerja
+      - link "FAQ" [ref=e168] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000#faq
+      - link "Kontak" [ref=e169] [cursor=pointer]:
+        - /url: mailto:admin@gmail.com
+    - generic [ref=e170]: © 2026 PELITA. All Rights Reserved.

@@ -41,7 +41,10 @@
             @endif
             <div class="actions">
                 <button class="button" type="submit">Terapkan filter</button>
-                <a class="button button-secondary" href="{{ route('admin.participants.export', request()->query()) }}">Ekspor CSV</a>
+                <a class="button button-secondary" href="{{ route('admin.participants.export', request()->query()) }}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+                    Unduh PDF
+                </a>
             </div>
         </form>
 

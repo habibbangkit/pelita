@@ -38,6 +38,7 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/export', [DashboardController::class, 'export'])->name('dashboard.export');
     Route::get('/activity-logs', [AdminActivityLogController::class, 'index'])->name('activity-logs.index');
     Route::get('/participants', [ParticipantController::class, 'index'])->name('participants.index');
     Route::get('/participants/export', [ParticipantController::class, 'export'])->name('participants.export');

@@ -34,19 +34,18 @@ class AssessmentFlowTest extends TestCase
         $this->get('/')
             ->assertOk()
             ->assertSee('PELITA')
+            ->assertDontSee('Bagian beranda')
+            ->assertSee('Tentang PELITA')
             ->assertSee('Pemetaan Literasi dan Kesiapan Teknologi Artificial Intelligence')
-            ->assertSee('Kenali Kemampuanmu, Siap Hadapi Era Artificial Intelligence.')
-            ->assertSee('Mengenal PELITA')
-            ->assertSee('Apa yang Diukur PELITA?')
-            ->assertSee('Bagaimana Cara Kerjanya?')
-            ->assertSee('Tingkat Kematangan AI')
-            ->assertSee('0–39')
-            ->assertSee('40–74')
-            ->assertSee('75–100')
-            ->assertSee('Mengapa Mengikuti PELITA?')
+            ->assertSee('Kenali Potensimu,')
+            ->assertSee('Tentang PELITA')
+            ->assertSee('Apa itu PELITA?')
+            ->assertSee('Apa yang Diukur?')
+            ->assertSee('Literasi Dasar AI')
+            ->assertSee('Alur Asesmen PELITA')
+            ->assertSee('Pertanyaan yang Sering Diajukan')
             ->assertSee('Siap Mengukur Kesiapanmu Menghadapi Era AI?')
-            ->assertSee('Mulai asesmen')
-            ->assertSee('Mulai Asesmen Sekarang')
+            ->assertSee('Mulai asesmen sekarang')
             ->assertSee('© 2026 PELITA. All Rights Reserved.')
             ->assertSee('href="'.route('home').'#mulai-asesmen"', false);
 
@@ -380,6 +379,39 @@ class AssessmentFlowTest extends TestCase
         Mail::assertNothingSent();
     }
 
+    public function test_synchronous_email_failure_does_not_interrupt_completed_assessment(): void
+    {
+        config([
+            'queue.default' => 'sync',
+            'mail.default' => 'smtp',
+        ]);
+        [$firstQuestion, $firstOption, $secondQuestion, $secondOption] = $this->createPublishedAssessment();
+        $attempt = $this->startAttempt();
+
+        $this->post(route('assessment.answer', $attempt), [
+            'question_id' => $firstQuestion->id,
+            'question_option_id' => $firstOption->id,
+            'action' => 'next',
+        ]);
+
+        Mail::shouldReceive('to')
+            ->once()
+            ->with('peserta@example.com')
+            ->andThrow(new \RuntimeException('SMTP unavailable'));
+
+        $this->post(route('assessment.answer', $attempt), [
+            'question_id' => $secondQuestion->id,
+            'question_option_id' => $secondOption->id,
+            'action' => 'finish',
+        ])->assertRedirect(route('assessment.complete', $attempt));
+
+        $this->assertSame('completed', $attempt->fresh()->status);
+        $this->assertSame('failed', $attempt->fresh()->result_email_status);
+        $this->get(route('assessment.complete', $attempt))
+            ->assertOk()
+            ->assertSee('Laporan belum berhasil dikirim');
+    }
+
     public function test_repeated_assessments_share_participant_identity_and_admin_can_view_history(): void
     {
         [$firstQuestion, $firstOption, $secondQuestion, $secondOption] = $this->createPublishedAssessment();
@@ -538,7 +570,10 @@ class AssessmentFlowTest extends TestCase
         $this->get(route('admin.dashboard'))
             ->assertOk()
             ->assertSee('1')
-            ->assertSee('Transformer');
+            ->assertSee('Transformer')
+            ->assertSee('Asesmen selesai')
+            ->assertSee('Rata-rata Skor per Dimensi')
+            ->assertSee('Distribusi Tingkat Kematangan');
 
         $this->get(route('admin.participants.index', ['search' => 'peserta@example.com']))
             ->assertOk()
@@ -556,11 +591,14 @@ class AssessmentFlowTest extends TestCase
 
         $attempt->participant->update(['name' => ' =SUM(1,1)']);
         $response = $this->get(route('admin.participants.export', ['level' => 'Transformer']));
-        $response->assertOk();
-        $csv = $response->streamedContent();
-        $this->assertStringContainsString('Skor Akhir', $csv);
-        $this->assertStringContainsString('peserta@example.com', $csv);
-        $this->assertStringContainsString("' =SUM", $csv);
+        $response->assertOk()
+            ->assertHeader('content-type', 'application/pdf')
+            ->assertHeader('content-disposition');
+        $this->assertStringStartsWith('%PDF-', $response->getContent());
+
+        $this->get(route('admin.dashboard.export'))
+            ->assertOk()
+            ->assertHeader('content-type', 'application/pdf');
     }
 
     public function test_admin_can_manage_questions_and_publish_a_valid_assessment(): void
